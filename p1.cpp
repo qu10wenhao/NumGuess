@@ -7,7 +7,7 @@
 using namespace std;
 
 int main(){
-	char choose; 										//choose:judge wheather the user want to play the game 
+	char choose; 										//choose:judge whether the user want to play the game 
 	int games = 0, win = 0;   								//games:number of the total games, win: number of the game that the player wins 
 	
 	cout << "Do you want to play this game(Y/N)？";
@@ -18,7 +18,7 @@ int main(){
 		
 		int i, j,randnum[3], guessnum[3];						//randnum[3]: 3 random numbers, guessnum[3]: 3 answers 
 		int chance = 7, rnrp, rnwp;							//count: player's chance, rnrp: the number of A(right number right place) 
-																//rnwp: the number of B(right number wrong place)
+												//rnwp: the number of B(right number wrong place)
 		srand(time(NULL));
 	
 		i = 0;
@@ -42,7 +42,7 @@ int main(){
 				cin >> guessnum[i];
 				}
 			
-			for (i=0; i<3; i++) {							//judge wheather the number and its location is right
+			for (i=0; i<3; i++) {							//judge whether the number and its location is right
 				for (j=0; j<3; j++) {						
 					if (guessnum[i] == randnum[j]) {
 						i == j ? rnrp += 1 : rnwp += 1;
