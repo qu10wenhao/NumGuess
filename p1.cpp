@@ -7,22 +7,22 @@
 using namespace std;
 
 int main(){
-	char choose; 												//choose:Íæ¼ÒÊÇ·ñÒªÍæÓÎÏ· 
-	int games = 0, win = 0;   									//games:×ÜµÄÓÎÏ·³¡Êı, win: Ó®µÄ³¡Êı 
+	char choose; 										//choose:judge wheather the user want to play the game 
+	int games = 0, win = 0;   								//games:number of the total games, win: number of the game that the player wins 
 	
-	cout << "ĞèÒªÍæÓÎÏ·Âğ£¨Y/N£©£¿";
+	cout << "Do you want to play this game(Y/N)ï¼Ÿ";
 	cin >> choose;
 	
-	if ('Y' == choose) do{ 
+	while('Y' == choose){ 
 		games += 1;
 		
-		int i, j,randnum[3], guessnum[3];						//randnum[3]: 3¸öËæ»úÊı, guessnum[3]: 3¸ö´ğ°¸ 
-		int chance = 7, rnrp, rnwp;								//count: Íæ¼Ò»ú»áÊı, rnrp: Êı×ÖÕıÈ·Î»ÖÃ´íÎóµÄ¸öÊı 
-																//rnwp: Êı×ÖÕıÈ·Î»ÖÃ´íÎóµÄ¸öÊı 
+		int i, j,randnum[3], guessnum[3];						//randnum[3]: 3 random numbers, guessnum[3]: 3 answers 
+		int chance = 7, rnrp, rnwp;							//count: player's chance, rnrp: the number of A(right number right place) 
+																//rnwp: the number of B(right number wrong place)
 		srand(time(NULL));
 	
 		i = 0;
-		while (i < 3) {											//Éú³É3¸ö²»Í¬Ëæ»úÊı 
+		while (i < 3) {									//create 3 different random numbers
 			bool flag = true;
 			randnum[i] = rand() * 10 / (RAND_MAX + 1);
 			for (j=0; j<i; j++){
@@ -35,44 +35,44 @@ int main(){
 			}
 		}
 	
-		while (0 != chance) {									//Íæ¼Ò¿ªÊ¼²Â²â£¬»ú»áÎªÁãÊ±Ç¿ÖÆ½áÊø 
+		while (0 != chance) {								//player starts to guess, forcibly end when player has no chance 
 			rnrp = 0, rnwp =0;
-			cout << "ÇëÊäÈëÄã²Â²âµÄÊı×Ö£º" << endl;
+			cout << "You guessï¼š" << endl;
 			for (i=0; i<3; i++) {
 				cin >> guessnum[i];
 				}
 			
-			for (i=0; i<3; i++) {								//ÅĞ¶ÏÊı×ÖÕıÈ·Î»ÖÃÕıÈ·ºÍÊı×ÖÕıÈ·
-				for (j=0; j<3; j++) {							//Î»ÖÃ´íÎóµÄ¸öÊı 
+			for (i=0; i<3; i++) {							//judge wheather the number and its location is right
+				for (j=0; j<3; j++) {						
 					if (guessnum[i] == randnum[j]) {
 						i == j ? rnrp += 1 : rnwp += 1;
 					}
 				}
 			}
 			
-			if (3 == rnrp) {									//Íæ¼Ò²Å³öÊı×Ö£¬ÌáÇ°½áÊøÓÎÏ·£¬Ê¤³¡Êı+1 
-				cout << "¹§Ï²£¬Äã²Â¶ÔÁË£¡" << endl;
+			if (3 == rnrp) {							//player wins 
+				cout << "Congratulation, you are rightï¼" << endl;
 				win += 1;
 				break;
-			}else {												//Íæ¼ÒÎ´²Â³öÊı×Ö£¬¸øÓèÏàÓ¦ÌáÊ¾²¢¼õÉÙÒ»´Î»ú»á 
+			}else {									//wrong guess, show the number of A and B
 				cout << rnrp << 'A' << rnwp << 'B' << endl;
 				chance -= 1;
 			}
 				
 		}
 		
-		if (0 == chance) {										//Íæ¼ÒÒò»ú»áÓÃÍê¶øÇ¿ÖÆ½áÊøÓÎÏ·£¬¹«²¼ÕıÈ·´ğ°¸ 
-			cout << "ºÜÒÅº¶£¬ÄãÃ»ÓĞÔÚ¹æ¶¨´ÎÊıÄÚ²Å¶Ô¡£´ğ°¸ÊÇ ";
+		if (0 == chance) {								//player has no chance, show the right answer!
+			cout << "What a pity, you didn't guess it, the answer is: ";
 			for (i=0; i<3; i++) {
 				cout << randnum[i];
 				}
 			cout << endl;
 		}
-		cout << "ĞèÒªÍæÓÎÏ·Âğ£¨Y/N£©£¿";
+		cout << "Again(Y/N)ï¼Ÿ";
 		cin >> choose;
-	}while ('Y' == choose);
+	}
 	
-	cout << "ÄãÒ»¹²ÍæÁË" << games << "¾Ö£¬Ó®ÁË" << win\
-	 << "¾Ö£¬ÊäÁË" << games - win << "¾Ö" << endl;				//ÓÎÏ·½áÊø£¬Êä³öÍ³¼Æ½á¹û 
+	cout << "You have played" << games << "games, won" << win\
+	 << "times, lost" << games - win << "times" << endl;					//game over!
 	return 0; 
 }
